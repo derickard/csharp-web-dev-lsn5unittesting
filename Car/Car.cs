@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+
 namespace CarNS
 {
     public class Car
@@ -9,7 +11,8 @@ namespace CarNS
         public double GasTankLevel { get; set; }
         public double MilesPerGallon { get; set; }
         public double Odometer { get; set; } = 0;
-
+    
+        
         public Car(string make, string model, int gasTankSize, double milesPerGallon)
         {
             Make = make;
@@ -39,6 +42,15 @@ namespace CarNS
             double gallonsUsed = milesAbleToTravel / MilesPerGallon;
             GasTankLevel -= gallonsUsed;
             Odometer += milesAbleToTravel;
+        }
+
+        public void AddGas(double gas)
+        {
+            GasTankLevel += gas;
+            if (GasTankLevel > GasTankSize)
+            {
+                throw new ArgumentOutOfRangeException("Can't exceed tank size.");
+            }
         }
 
     }
